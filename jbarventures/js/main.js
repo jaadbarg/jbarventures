@@ -257,28 +257,47 @@ document.addEventListener('DOMContentLoaded', function() {
         showSlide(currentSlide);
     }, 15000);
     
-    // Form submission handling
+    // Form submission handling with Formspree
     const contactForm = document.getElementById('contactForm');
+    const submitBtn = document.querySelector('.submit-btn');
     
     if (contactForm) {
         contactForm.addEventListener('submit', function(e) {
-            e.preventDefault();
+            // Don't prevent default as we want the form to submit to Formspree
+            // However, we still want to update the UI to show submission status
             
-            // Get form data
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const subject = document.getElementById('subject').value;
-            const message = document.getElementById('message').value;
+            // Change button text to show loading
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+            submitBtn.disabled = true;
             
-            // Here you would typically send the data to a server
-            // For now, we'll just log it and show a success message
-            console.log('Form submitted:', { name, email, subject, message });
+            // We'll add a small delay before showing success to ensure Formspree has time to process
+            // This is handled by Formspree's redirect (we'll be redirected back to the site)
             
-            // Show success message (in a real implementation, you'd wait for server response)
-            alert('Thank you for your message! We will get back to you soon.');
-            
-            // Reset form
-            contactForm.reset();
+            // No need to manually reset the form as the page will refresh after submission
         });
+        
+        // Check if user was redirected back from Formspree (successful submission)
+        if (window.location.search.includes('?submitted=true')) {
+            // Show success message
+            const successMessage = document.createElement('div');
+            successMessage.className = 'form-success-message';
+            successMessage.innerHTML = '<i class="fas fa-check-circle"></i> Thank you for your message! We will get back to you soon.';
+            
+            // Insert before the form
+            contactForm.parentNode.insertBefore(successMessage, contactForm);
+            
+            // Hide the form
+            contactForm.style.display = 'none';
+            
+            // Remove query parameters from URL without refreshing
+            history.replaceState({}, document.title, window.location.pathname);
+            
+            // Show form again after 5 seconds
+            setTimeout(() => {
+                successMessage.remove();
+                contactForm.style.display = 'block';
+                contactForm.reset();
+            }, 5000);
+        }
     }
 });
