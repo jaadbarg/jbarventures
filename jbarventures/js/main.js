@@ -1,4 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // Developer note for client logos
+    console.log("Developer Note: Replace placeholder client logo images in /images/clients/ directory with the actual logo files from the provided URLs");
     // Mobile Menu Toggle
     const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
     const navMenu = document.querySelector('nav ul');
@@ -262,22 +264,30 @@ document.addEventListener('DOMContentLoaded', function() {
     const submitBtn = document.querySelector('.submit-btn');
     
     if (contactForm) {
+        // Set initial button state
+        const initialButtonText = submitBtn.innerHTML;
+        
         contactForm.addEventListener('submit', function(e) {
             // Don't prevent default as we want the form to submit to Formspree
-            // However, we still want to update the UI to show submission status
             
             // Change button text to show loading
             submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
             submitBtn.disabled = true;
             
-            // We'll add a small delay before showing success to ensure Formspree has time to process
-            // This is handled by Formspree's redirect (we'll be redirected back to the site)
-            
-            // No need to manually reset the form as the page will refresh after submission
+            // Set a timeout to reset button if for some reason the form doesn't redirect
+            // This handles cases where the submission might have failed
+            setTimeout(() => {
+                submitBtn.innerHTML = initialButtonText;
+                submitBtn.disabled = false;
+            }, 10000); // Reset after 10 seconds if no redirect happens
         });
         
         // Check if user was redirected back from Formspree (successful submission)
         if (window.location.search.includes('?submitted=true')) {
+            // Reset the button immediately
+            submitBtn.innerHTML = initialButtonText;
+            submitBtn.disabled = false;
+            
             // Show success message
             const successMessage = document.createElement('div');
             successMessage.className = 'form-success-message';

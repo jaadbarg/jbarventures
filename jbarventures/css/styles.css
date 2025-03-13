@@ -847,6 +847,79 @@ nav li {
     background-color: var(--primary-color);
 }
 
+/* Clients Section */
+.clients {
+    padding: 100px 0;
+    background-color: var(--section-bg-dark);
+    position: relative;
+    z-index: 1;
+}
+
+.clients-subtitle {
+    text-align: center;
+    color: rgba(255, 255, 255, 0.7);
+    margin-top: -30px;
+    margin-bottom: 50px;
+}
+
+.client-logos {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 60px;
+    margin: 40px auto;
+    max-width: 800px;
+}
+
+.client-logo-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: var(--transition);
+    padding: 20px;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.client-logo-container:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 30px rgba(76, 182, 122, 0.1);
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.client-logo {
+    height: 100px;
+    width: auto;
+    max-width: 200px;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
+    opacity: 0.8;
+    transition: var(--transition);
+    border-radius: 5px;
+    background-color: transparent;
+}
+
+.client-logo-container:hover .client-logo {
+    opacity: 1;
+}
+
+/* Special case for client logos that need custom treatment */
+.client-logo-container:nth-child(3) .client-logo {
+    /* Lenny Universe logo needs special treatment as it's already black */
+    filter: brightness(1) invert(1);
+    background-color: transparent;
+}
+
+.client-name {
+    margin-top: 15px;
+    color: rgba(255, 255, 255, 0.7);
+    font-weight: 500;
+    text-align: center;
+}
+
 /* Contact Section */
 .contact {
     padding: 100px 0;
