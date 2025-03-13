@@ -7,6 +7,8 @@
     --light-color: #f8f9fa;
     --gray-color: #6c757d;
     --transition: all 0.3s ease;
+    --section-bg-light: rgba(13, 26, 39, 0.5);
+    --section-bg-dark: rgba(13, 26, 39, 0.7);
 }
 
 /* Particles background */
@@ -82,6 +84,47 @@ img {
     }
 }
 
+/* Section Dividers */
+.section-divider {
+    position: relative;
+    height: 100px;
+    width: 100%;
+    overflow: hidden;
+    margin-top: -50px;
+    margin-bottom: -50px;
+    z-index: 2;
+}
+
+.divider-wave {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.wave-top {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 120' preserveAspectRatio='none'%3E%3Cpath d='M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z' fill='rgba(13, 26, 39, 0.5)' opacity='0.5'%3E%3C/path%3E%3C/svg%3E");
+}
+
+.wave-bottom {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 120' preserveAspectRatio='none'%3E%3Cpath d='M985.66,92.83C906.67,72,823.78,31,743.84,14.19c-82.26-17.34-168.06-16.33-250.45.39-57.84,11.73-114,31.07-172,41.86A600.21,600.21,0,0,1,0,27.35V120H1200V95.8C1132.19,118.92,1055.71,111.31,985.66,92.83Z' fill='rgba(13, 26, 39, 0.7)' opacity='0.5'%3E%3C/path%3E%3C/svg%3E");
+}
+
+.dots-pattern {
+    background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='2' cy='2' r='1' fill='rgba(76, 182, 122, 0.3)'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    opacity: 0.5;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    mix-blend-mode: overlay;
+}
+
 /* Header */
 header {
     position: fixed;
@@ -92,8 +135,7 @@ header {
     z-index: 1000;
     transition: var(--transition);
     background-color: rgba(13, 26, 39, 0.85);
-    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
-    border-bottom: 3px solid var(--primary-color);
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.15);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
 }
@@ -138,6 +180,10 @@ nav ul {
 
 nav li {
     margin-left: 30px;
+}
+
+.mobile-menu-toggle {
+    display: none !important; /* Hide on desktop */
 }
 
 .nav-link {
@@ -305,7 +351,7 @@ nav li {
 /* Services Section */
 .services {
     padding: 100px 0;
-    background-color: rgba(13, 26, 39, 0.7);
+    background-color: var(--section-bg-dark);
     position: relative;
     z-index: 1;
 }
@@ -345,7 +391,6 @@ nav li {
     z-index: 1;
     overflow: hidden;
     border: 1px solid rgba(255, 255, 255, 0.1);
-    border-bottom: 3px solid transparent;
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
 }
@@ -357,15 +402,14 @@ nav li {
     left: 0;
     width: 100%;
     height: 0;
-    background-color: rgba(76, 182, 122, 0.15);
+    background: linear-gradient(to bottom, rgba(76, 182, 122, 0.0), rgba(76, 182, 122, 0.2));
     transition: var(--transition);
     z-index: -1;
 }
 
 .service-card:hover {
     transform: translateY(-10px);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-    border-bottom: 3px solid var(--primary-color);
+    box-shadow: 0 10px 30px rgba(76, 182, 122, 0.15);
 }
 
 .service-card:hover::before {
@@ -391,7 +435,7 @@ nav li {
 /* About Section */
 .about {
     padding: 100px 0;
-    background-color: rgba(13, 26, 39, 0.5);
+    background-color: var(--section-bg-light);
     position: relative;
     z-index: 1;
 }
@@ -472,7 +516,7 @@ nav li {
 /* Stats Section */
 .stats-section {
     padding: 100px 0;
-    background-color: rgba(13, 26, 39, 0.5);
+    background-color: var(--section-bg-light);
     position: relative;
     z-index: 1;
 }
@@ -491,15 +535,31 @@ nav li {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     transition: var(--transition);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    border-left: 3px solid transparent;
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+}
+
+.stat-card::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 3px;
+    background-color: rgba(76, 182, 122, 0.3);
+    opacity: 0;
+    transition: var(--transition);
 }
 
 .stat-card:hover {
     transform: translateY(-10px);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-    border-left: 3px solid var(--primary-color);
+    box-shadow: 0 15px 30px rgba(76, 182, 122, 0.1);
+}
+
+.stat-card:hover::before {
+    opacity: 1;
 }
 
 .stat-icon {
@@ -695,7 +755,7 @@ nav li {
 /* Testimonials Section */
 .testimonials {
     padding: 100px 0;
-    background-color: rgba(13, 26, 39, 0.7);
+    background-color: var(--section-bg-dark);
     position: relative;
     z-index: 1;
 }
@@ -720,9 +780,15 @@ nav li {
     margin-bottom: 30px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    border-top: 3px solid var(--primary-color);
+    box-shadow: 0 0 15px rgba(76, 182, 122, 0.15);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
+    transition: var(--transition);
+}
+
+.testimonial-content:hover {
+    box-shadow: 0 0 20px rgba(76, 182, 122, 0.25);
+    transform: translateY(-5px);
 }
 
 .testimonial-content::after {
@@ -784,7 +850,7 @@ nav li {
 /* Contact Section */
 .contact {
     padding: 100px 0;
-    background-color: rgba(13, 26, 39, 0.5);
+    background-color: var(--section-bg-light);
     position: relative;
     z-index: 1;
 }
@@ -910,6 +976,7 @@ footer {
     color: white;
     position: relative;
     z-index: 1;
+    margin-top: -50px;
 }
 
 .footer-content {
@@ -1137,6 +1204,30 @@ footer {
     }
 }
 
+/* Desktop styles */
+@media (min-width: 769px) {
+    .mobile-menu-toggle {
+        display: none !important;
+    }
+    
+    nav ul {
+        display: flex !important;
+        position: static;
+        background-color: transparent;
+        box-shadow: none;
+        border: none;
+        width: auto;
+        padding: 0;
+    }
+    
+    nav li {
+        margin-left: 30px;
+        width: auto;
+        text-align: left;
+    }
+}
+
+/* Mobile styles */
 @media (max-width: 768px) {
     .citation-tabs {
         flex-wrap: wrap;
@@ -1158,7 +1249,7 @@ footer {
     }
     
     .mobile-menu-toggle {
-        display: block;
+        display: block !important;
         background: none;
         border: none;
         color: rgba(255, 255, 255, 0.8);
